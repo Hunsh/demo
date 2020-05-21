@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.myproject.dao.UserDao">
+	<resultMap id="BaseResultMap" type="com.example.myproject.domain.User">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		tno,tname
+	</sql>
+
+	<select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where name = #{name}
+	</select>
+
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.example.myproject.domain.dto.UserDto">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where 1=1
+		<if test="userDto != null ">
+			<if test="userDto.ids!=null and userDto.ids.size>0">
+				and id in
+					<foreach collection="ids" open="(" close=")" separator="," item="id" index="i">
+						#{id}
+					</foreach>
+			</if>
+
+			<if test="userDto.name！=null and userDto.name!=''">
+				and name=#{userDto.name}
+			</if>
+
+		</if>
+	</select>
+</mapper>
