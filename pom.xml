@@ -34,7 +34,7 @@
   <description>work-parent</description>
 
   <properties>
-    <google.guava>29.0-jre</google.guava>
+    <google.guava>32.0.0-jre</google.guava>
   </properties>
 
   <modules>
